@@ -1,7 +1,7 @@
 {
   "name": "mern-back-end",
   "version": "1.0.0",
-  "description": "This is backend of ecommerce flipkart clone project",
+  "description": "This is backend of ecommerce project",
   "main": "index.js",
   "scripts": {
     "start": "nodemon ./src/index.server.js"
@@ -14,7 +14,7 @@
     "api",
     "api"
   ],
-  "author": "Rizwan Khan",
+  "author": "devhoangkien",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.0",

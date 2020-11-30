@@ -1,9 +1,10 @@
 const express = require("express");
-const env = require("dotenv");
+// const env = require("dotenv");
 const app = express();
-const mongoose = require("mongoose");
+// const mongoose = require("mongoose");
 const path = require("path");
 const cors = require("cors");
+const connectDB = require("./config/connectDB");
 
 //routes
 const authRoutes = require("./routes/auth");
@@ -17,24 +18,26 @@ const addressRoutes = require("./routes/address");
 const orderRoutes = require("./routes/order");
 const adminOrderRoute = require("./routes/admin/order.routes");
 
+
 //environment variable or you can say constants
 env.config();
 
 // mongodb connection
-//mongodb+srv://root:<password>@cluster0.8pl1w.mongodb.net/<dbname>?retryWrites=true&w=majority
-mongoose
-  .connect(
-    `mongodb+srv://${process.env.MONGO_DB_USER}:${process.env.MONGO_DB_PASSWORD}@cluster0.8pl1w.mongodb.net/${process.env.MONGO_DB_DATABASE}?retryWrites=true&w=majority`,
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useCreateIndex: true,
-      useFindAndModify: false,
-    }
-  )
-  .then(() => {
-    console.log("Database connected");
-  });
+//mongodb+srv://root:<password>@<dbUrl>/<dbname>?retryWrites=true&w=majority
+// mongoose
+//   .connect(
+//     `mongodb+srv://${process.env.MONGO_DB_USER}:${process.env.MONGO_DB_PASSWORD}@${process.env.MONGO_DB_URL}/${process.env.MONGO_DB_DATABASE}?retryWrites=true&w=majority`,
+//     {
+//       useNewUrlParser: true,
+//       useUnifiedTopology: true,
+//       useCreateIndex: true,
+//       useFindAndModify: false,
+//     }
+//   )
+//   .then(() => {
+//     console.log("Database connected");
+//   });
+connectDB();
 
 app.use(cors());
 app.use(express.json());
@@ -50,6 +53,6 @@ app.use("/api", addressRoutes);
 app.use("/api", orderRoutes);
 app.use("/api", adminOrderRoute);
 
-app.listen(process.env.PORT, () => {
+app.listen(process.env.PORT || 2000, () => {
   console.log(`Server is running on port ${process.env.PORT}`);
 });
